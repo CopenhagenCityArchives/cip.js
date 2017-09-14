@@ -24,7 +24,11 @@ var request = require('request'),
 function CIPClient(config) {
     this.config = config;
     this.jsessionid = null;
-    this.DEBUG = true;
+    this.DEBUG = config.logRequests;
+
+    if(this.DEBUG) {
+      require('request-debug')(request);
+    }
 
     cipCommon.assert(config !== undefined,
                      'The CIPClient must be passed a config object.');
