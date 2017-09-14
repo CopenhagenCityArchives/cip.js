@@ -37,7 +37,7 @@ function CIPClient(config) {
 
     this.defaultNamedParameters = {
         apiversion: config.apiVersion || 4,
-        serveraddress: config.serverAddress || 'localhost'
+        //serveraddress: config.serverAddress || 'localhost'
     };
 
     /**
@@ -333,7 +333,7 @@ function CIPClient(config) {
                 quicksearchstring: searchterm,
                 sortby: sortby,
                 table: table.name,
-                collection: ''  // We pass an empty collection to get the system to create one for us and return the name
+                //collection: ''  // We pass an empty collection to get the system to create one for us and return the name
             }).then(function(response) {
                 return new cipSearchresult.CIPSearchResult(cip,
                                                            response.body,

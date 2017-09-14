@@ -20,7 +20,7 @@ function CIPSearchResult(cip, collection, catalog) {
         throw new Error('A CIPSearchResult.total_rows must be a number.');
     }
     if (typeof(this.collection_id) !== 'string') {
-        throw new Error('A CIPSearchResult.collection_id must be a string.');
+        //throw new Error('A CIPSearchResult.collection_id must be a string.');
     }
 
     /**
@@ -35,12 +35,16 @@ function CIPSearchResult(cip, collection, catalog) {
 
         var layoutAlias = cip.config.constants.layoutAlias;
 
+        console.log(collection);
+
         return cip.request([
             'metadata',
             'getfieldvalues',
-            layoutAlias
+
         ], {
             collection: this.collection_id,
+            //itemid: collection.ids[0],
+            //catalog: catalog,
             startindex: pointer,
             maxreturned: numRows
         }).then(function(response) {
