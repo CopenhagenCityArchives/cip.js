@@ -139,6 +139,9 @@ function CIPClient(config) {
 
         var rejectUnauthorized = this.config.trustSelfSigned ? false : true;
 
+        var username = this.config.username;
+        var password = this.config.password;
+
         return new Promise(function(resolve, reject) {
             var options = {
                 url: url,
@@ -166,7 +169,8 @@ function CIPClient(config) {
                 } else {
                     resolve(response);
                 }
-            });
+            })
+            .auth(username, password);
         });
     };
 
