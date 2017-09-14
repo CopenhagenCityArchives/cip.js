@@ -41,7 +41,7 @@ function CIPClient(config) {
 
     this.defaultNamedParameters = {
         apiversion: config.apiVersion || 4,
-        serveraddress: config.serverAddress || 'localhost'
+        //serveraddress: config.serverAddress || 'localhost'
     };
 
     /**
@@ -143,6 +143,9 @@ function CIPClient(config) {
 
         var rejectUnauthorized = this.config.trustSelfSigned ? false : true;
 
+        var username = this.config.username;
+        var password = this.config.password;
+
         return new Promise(function(resolve, reject) {
             var options = {
                 url: url,
@@ -170,7 +173,8 @@ function CIPClient(config) {
                 } else {
                     resolve(response);
                 }
-            });
+            })
+            .auth(username, password);
         });
     };
 
@@ -333,7 +337,7 @@ function CIPClient(config) {
                 quicksearchstring: searchterm,
                 sortby: sortby,
                 table: table.name,
-                collection: ''  // We pass an empty collection to get the system to create one for us and return the name
+                //collection: ''  // We pass an empty collection to get the system to create one for us and return the name
             }).then(function(response) {
                 return new cipSearchresult.CIPSearchResult(cip,
                                                            response.body,
