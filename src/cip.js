@@ -24,10 +24,10 @@ var request = require('request'),
 function CIPClient(config) {
     this.config = config;
     this.jsessionid = null;
-    this.DEBUG = config.logRequests;
+    this.DEBUG = true;
 
-    if(this.DEBUG) {
-      require('request-debug')(request);
+    if(config.logRequests) {
+      require('./cip-logger.js')(request, config.logRequests);
     }
 
     cipCommon.assert(config !== undefined,
