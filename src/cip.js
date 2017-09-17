@@ -89,7 +89,9 @@ function CIPClient(config) {
         var queryString = '';
 
         // Should we include the jsessionid?
-        if (withoutJSessionID !== true && this.jsessionid) {
+        if (this.config.authMechanism !== 'http-basic' &&
+            withoutJSessionID !== true && this.jsessionid) {
+
             result += ';jsessionid=' + this.jsessionid;
         }
 
@@ -132,7 +134,9 @@ function CIPClient(config) {
             operation = operation.join('/');
         }
 
-        if (this.jsessionid === null && operation !== 'session/open') {
+        if (this.config.authMechanism !== 'http-basic' &&
+            this.jsessionid === null &&
+            operation !== 'session/open') {
             console.warn('No jsessionid - consider calling session_open before calling other action.');
         }
 
@@ -170,7 +174,7 @@ function CIPClient(config) {
                 } else {
                     resolve(response);
                 }
-            });
+            }).auth(config.username, config.password);
         });
     };
 
